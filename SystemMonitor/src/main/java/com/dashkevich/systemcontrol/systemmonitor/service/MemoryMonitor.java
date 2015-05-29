@@ -1,25 +1,34 @@
 package com.dashkevich.systemcontrol.systemmonitor.service;
 
+import com.dashkevich.systemcontrol.systemmonitor.dao.SystemResourceDAO;
 import com.dashkevich.systemcontrol.systemmonitor.model.SystemResource;
 import com.sun.management.OperatingSystemMXBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.lang.management.ManagementFactory;
 import java.util.Date;
 
-
+@Service
 public class MemoryMonitor implements  Runnable {
 
-    OperatingSystemMXBean bean = (com.sun.management.OperatingSystemMXBean) ManagementFactory
+    OperatingSystemMXBean bean = (OperatingSystemMXBean) ManagementFactory
             .getOperatingSystemMXBean();
+
+    @Autowired
+    SystemResourceDAO srDAO;
 
     public void run()
     {
-        while(!Thread.interrupted()){
-            System.out.println(this.check());
-            return;
-            /*try{
-                Thread.sleep(1000);
-            }catch(InterruptedException e){}*/
+        for (int i = 0; i < 3 && !Thread.interrupted(); ++i){
+            SystemResource sr = this.check();
+            srDAO.addSystemResource(sr);
+            System.out.println(sr);
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
