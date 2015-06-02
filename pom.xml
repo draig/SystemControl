@@ -18,6 +18,8 @@
         <module>DataAccess</module>
         <module>SystemMonitor</module>
         <module>ConsoleApp</module>
+        <module>FullRestApi</module>
+        <module>SystemRest</module>
     </modules>
 
     <dependencyManagement>

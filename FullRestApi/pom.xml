@@ -7,42 +7,71 @@
         <groupId>com.dashkevich.systemcontrol</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
     <modelVersion>4.0.0</modelVersion>
 
+    <artifactId>full-rest-api</artifactId>
 
-    <artifactId>system-monitor</artifactId>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <name>SpringMVC Json Webapp</name>
+    <url>http://maven.apache.org</url>
 
-    <build>
-        <defaultGoal>install</defaultGoal>
-    </build>
-
-    <repositories>
-        <repository>
-            <id>JBoss repository</id>
-            <url>http://repository.jboss.com/maven2/</url>
-        </repository>
-    </repositories>
+    <properties>
+        <spring.version>3.2.2.RELEASE</spring.version>
+        <jackson.version>2.0.4</jackson.version>
+        <jdk.version>1.6</jdk.version>
+    </properties>
 
     <dependencies>
-        <!-- Project -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.9</version>
-        </dependency>
 
-        <!-- Spring -->
+        <!-- Spring 3 dependencies -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
             <version>${spring.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
+            <artifactId>spring-web</artifactId>
             <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <!-- Jackson JSON Mapper -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.dashkevich.systemcontrol</groupId>
+            <artifactId>data-access</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.dashkevich.systemcontrol</groupId>
+            <artifactId>system-monitor</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <!-- Project -->
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.9</version>
         </dependency>
 
         <!-- Hibernate core -->
@@ -102,6 +131,33 @@
             <artifactId>jta</artifactId>
             <version>1.1</version>
         </dependency>
+
     </dependencies>
+
+    <build>
+        <finalName>FullRestApi</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.9</version>
+                <configuration>
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>false</downloadJavadocs>
+                    <wtpversion>2.0</wtpversion>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 
 </project>
